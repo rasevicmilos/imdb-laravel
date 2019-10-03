@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Movie;
+use App\Genre;
+
+use App\Http\Requests\CreateMovieRequest;
 
 class MovieController extends Controller
 {
@@ -15,7 +18,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return Movie::all();
+        return Movie::paginate(10);
     }
 
     /**
@@ -24,9 +27,19 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateMovieRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $movie = Movie::create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'genre_id' => $data['genre_id'],
+            // 'image_url' => $data['image_url']
+            'image_url' => array_get($data, 'image_url', 'https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg')
+        ]);
+
+        return $movie;
     }
 
     /**
@@ -35,9 +48,10 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($movieId)
     {
-        //
+        $movie = Movie::with('genre')->findOrFail($movieId);
+        return $movie;
     }
 
     /**
