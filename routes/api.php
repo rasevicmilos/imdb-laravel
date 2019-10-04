@@ -28,4 +28,5 @@ Route::group([
     'middleware' => ['jwt.verify']
 ], function() {
     Route::apiResource('movies', 'Api\MovieController');
+    Route::get('search', 'Api\MovieSearchController@search');
 });
