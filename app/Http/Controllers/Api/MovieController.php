@@ -35,7 +35,6 @@ class MovieController extends Controller
             'title' => $data['title'],
             'description' => $data['description'],
             'genre_id' => $data['genre_id'],
-            // 'image_url' => $data['image_url']
             'image_url' => array_get($data, 'image_url', 'https://icon-library.net/images/no-image-available-icon/no-image-available-icon-6.jpg')
         ]);
 
@@ -51,6 +50,8 @@ class MovieController extends Controller
     public function show($movieId)
     {
         $movie = Movie::with('genre')->findOrFail($movieId);
+        $movie->number_of_views++;
+        $movie->save();
         return $movie;
     }
 
