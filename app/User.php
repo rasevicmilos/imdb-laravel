@@ -48,4 +48,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function likedMovies() 
+    {
+        return $this->belongsToMany(Movie::class, 'user_liked');
+    }
+
+    public function dislikedMovies() {
+        return $this->belongsToMany(Movie::class, 'user_disliked');
+    }
 }

@@ -24,4 +24,13 @@ Route::group([
     Route::post('register', 'Auth\RegisterController@create');
 });
 
-Route::apiResource('movies', 'Api\MovieController');
+Route::group([
+    'middleware' => ['jwt.verify']
+], function() {
+    Route::apiResource('movies', 'Api\MovieController');
+    Route::get('search', 'Api\MovieSearchController@search');
+    Route::get('like/{id}', 'Api\MoviesLikeController@like');
+    Route::get('dislike/{id}', 'Api\MoviesLikeController@dislike');
+    Route::get('remove-like/{id}', 'Api\MoviesLikeController@removeLike');
+    Route::get('remove-dislike/{id}', 'Api\MoviesLikeController@removeDislike');
+});
