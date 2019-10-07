@@ -29,4 +29,8 @@ Route::group([
 ], function() {
     Route::apiResource('movies', 'Api\MovieController');
     Route::get('search', 'Api\MovieSearchController@search');
+    Route::get('like/{id}', 'Api\MoviesLikeController@like');
+    Route::get('dislike/{id}', 'Api\MoviesLikeController@dislike');
+    Route::get('remove-like/{id}', 'Api\MoviesLikeController@removeLike');
+    Route::get('remove-dislike/{id}', 'Api\MoviesLikeController@removeDislike');
 });
