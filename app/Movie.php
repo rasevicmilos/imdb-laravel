@@ -6,5 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
-    //
+    protected $fillable = ['title', 'description', 'image_url', 'genre_id', 'number_of_likes', 'number_of_dislikes'];
+
+    // public function genre()
+    // {
+    //     return $this->hasOne(Genre::class);
+    // }
+    public function genre() 
+    {
+        return $this->belongsTo(Genre::class);
+    }
+
+    public function usersThatLiked()
+    {
+        return $this->belongsToMany(User::class, 'user_liked');
+    }
+
+    public function usersThatDisliked()
+    {
+        return $this->belongsToMany(User::class, 'user_disliked');
+    }
 }
