@@ -33,4 +33,5 @@ Route::group([
     Route::get('dislike/{id}', 'Api\MoviesLikeController@dislike');
     Route::get('remove-like/{id}', 'Api\MoviesLikeController@removeLike');
     Route::get('remove-dislike/{id}', 'Api\MoviesLikeController@removeDislike');
+    Route::apiResource('genres', 'Api\GenreController');
 });

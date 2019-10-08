@@ -10,10 +10,6 @@ class Genre extends Model
 
     public $timestamps = false;
 
-    // public function movies()
-    // {
-    //     return $this->belongsToMany(Movie::class);
-    // }
     public function movies()
     {
         return $this->hasMany(Movie::class);

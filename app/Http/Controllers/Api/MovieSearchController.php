@@ -16,8 +16,23 @@ class MovieSearchController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $searchedMovies = Movie::where('title', 'LIKE', '%' . $query . '%' );
+        $genre = $request->input('genre');
+        // return $genre;
+        if($genre == 0){
+            $searchedMovies = Movie::where('title', 'LIKE', '%' . $query . '%' );
+        } else {
+            $searchedMovies = Movie::where('genre_id', '=', $genre)->where('title', 'LIKE', '%' . $query . '%' );
+        }
         $movies = $searchedMovies->paginate(10);
+        $movies->map(function($item) {
+            if(auth()->user()->likedMovies->contains($item)){
+                $item->user_liked = true; 
+            }
+            if(auth()->user()->dislikedMovies->contains($item)){
+                $item->user_disliked = true; 
+            }
+            return $item;
+        });
         return $movies;
     }
 }

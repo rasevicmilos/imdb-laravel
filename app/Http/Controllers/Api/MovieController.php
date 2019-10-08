@@ -104,5 +104,4 @@ class MovieController extends Controller
     {
         //
     }
-
 }
