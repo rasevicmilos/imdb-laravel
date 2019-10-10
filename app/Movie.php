@@ -26,4 +26,19 @@ class Movie extends Model
     {
         return $this->belongsToMany(User::class, 'user_disliked');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function usersThatAddedToWatchlist()
+    {
+        return $this->belongsToMany(User::class, 'user_watchlist');
+    }
+
+    public function usersThatWatched()
+    {
+        return $this->belongsToMany(User::class, 'user_watched');
+    }
 }

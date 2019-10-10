@@ -34,4 +34,9 @@ Route::group([
     Route::get('remove-like/{id}', 'Api\MoviesLikeController@removeLike');
     Route::get('remove-dislike/{id}', 'Api\MoviesLikeController@removeDislike');
     Route::apiResource('genres', 'Api\GenreController');
+    Route::apiResource('comments', 'Api\CommentsController');
+    Route::get('get-movies', 'Api\UsersWatchlistsController@getMovies');
+    Route::get('add-to-watch-list/{id}', 'Api\UsersWatchlistsController@add');
+    Route::get('remove-from-watch-list/{id}', 'Api\UsersWatchlistsController@remove');
+    Route::get('add-to-watched/{id}', 'Api\UsersWatchedController@markAsWatched');
 });
