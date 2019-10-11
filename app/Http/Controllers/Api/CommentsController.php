@@ -16,7 +16,22 @@ class CommentsController extends Controller
      */
     public function index(Request $request)
     {
+        $comments = Comment::where('movie_id', '=', $request->input('movie'))->paginate(5);
 
+        // $comments = Comment::where('movie_id', '=', $request->input('movie'))->orderBy('created_at', 'desc')->paginate(10);
+        return $comments;
+    }
+
+     /**
+     * Display a listing of the resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getLastPage(Request $request)
+    {
+        $comments = Comment::where('movie_id', '=', $request->input('movie'))->paginate(5);
+
+        return $comments->lastPage();
     }
 
     /**

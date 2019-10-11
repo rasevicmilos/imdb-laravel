@@ -17,22 +17,13 @@ class MovieSearchController extends Controller
     {
         $query = $request->input('query');
         $genre = $request->input('genre');
-        // return $genre;
-        if($genre == 0){
-            $searchedMovies = Movie::where('title', 'LIKE', '%' . $query . '%' );
-        } else {
-            $searchedMovies = Movie::where('genre_id', '=', $genre)->where('title', 'LIKE', '%' . $query . '%' );
+
+        $q = Movie::with('genre')->where('title', 'LIKE', "%$query%");
+        if ($genre != 0) {
+            $q->where('genre_id', '=', $genre);
         }
-        $movies = $searchedMovies->paginate(10);
-        $movies->map(function($item) {
-            if(auth()->user()->likedMovies->contains($item)){
-                $item->user_liked = true; 
-            }
-            if(auth()->user()->dislikedMovies->contains($item)){
-                $item->user_disliked = true; 
-            }
-            return $item;
-        });
+
+        $movies = $q->paginate(10);
         return $movies;
     }
 }

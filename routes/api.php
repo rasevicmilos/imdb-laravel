@@ -29,14 +29,14 @@ Route::group([
 ], function() {
     Route::apiResource('movies', 'Api\MovieController');
     Route::get('search', 'Api\MovieSearchController@search');
-    Route::get('like/{id}', 'Api\MoviesLikeController@like');
-    Route::get('dislike/{id}', 'Api\MoviesLikeController@dislike');
-    Route::get('remove-like/{id}', 'Api\MoviesLikeController@removeLike');
-    Route::get('remove-dislike/{id}', 'Api\MoviesLikeController@removeDislike');
+    Route::put('like', 'Api\MoviesLikeController@like');
+    Route::put('dislike', 'Api\MoviesLikeController@dislike');
     Route::apiResource('genres', 'Api\GenreController');
+    Route::get('comments-last-page', 'Api\CommentsController@getLastPage');
     Route::apiResource('comments', 'Api\CommentsController');
     Route::get('get-movies', 'Api\UsersWatchlistsController@getMovies');
     Route::get('add-to-watch-list/{id}', 'Api\UsersWatchlistsController@add');
-    Route::get('remove-from-watch-list/{id}', 'Api\UsersWatchlistsController@remove');
-    Route::get('add-to-watched/{id}', 'Api\UsersWatchedController@markAsWatched');
+    Route::delete('remove-from-watch-list/{id}', 'Api\UsersWatchlistsController@remove');
+    Route::put('add-to-watched/{id}', 'Api\UsersWatchedController@markAsWatched');
+    Route::get('most-popular', 'Api\MostPopularController@getMostPopular');
 });
