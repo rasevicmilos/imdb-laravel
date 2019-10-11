@@ -39,4 +39,5 @@ Route::group([
     Route::delete('remove-from-watch-list/{id}', 'Api\UsersWatchlistsController@remove');
     Route::put('add-to-watched/{id}', 'Api\UsersWatchedController@markAsWatched');
     Route::get('most-popular', 'Api\MostPopularController@getMostPopular');
+    Route::get('related-movies/{id}', 'Api\RelatedMoviesController@getRelatedMovies');
 });
