@@ -40,4 +40,5 @@ Route::group([
     Route::put('add-to-watched/{id}', 'Api\UsersWatchedController@markAsWatched');
     Route::get('most-popular', 'Api\MostPopularController@getMostPopular');
     Route::get('related-movies/{id}', 'Api\RelatedMoviesController@getRelatedMovies');
+    Route::post('add-movie-from-omdb', 'Api\MovieOMDBController@add');
 });
